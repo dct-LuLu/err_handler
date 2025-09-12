@@ -6,27 +6,39 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 13:01:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/12 13:26:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/12 18:56:21 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 
-size_t	strf_putstr()
+size_t	strf_putstr(char *output, const size_t len, const char *str)
+{
+	const size_t	str_len = ft_strlen(str);
+
+	if (str_len > len)
+	{
+		ft_memcpy(output, str, len);
+		return (len);
+	}
+	else
+	{
+		ft_memcpy(output, str, str_len);
+		return (str_len);
+	}
+}
 
 size_t	strf_handler(char *output, const size_t len, const char specifier,
 		va_list args);
 {
 	if (specifier == 'c')
-	{
 		output[0] = va_args(args, int);//char ?
-		return (1);
-	}
 	else if (specifier == 's')
-	{
-
-	}
+		return (strf_putstr(output, len, va_args(args, char *)));
+	else
+		output[0] = specifier;
+	return (1);
 }
 
 /*
@@ -46,7 +58,7 @@ void strf(char *output, const size_t len, const char *format, ...)
 	while (format[read_i] && (write_i < (len - 1)))
 	{
 		if (format[read_i] == '%')
-			write_i += strf_handler(output + write_i, len - write_i, format[++read_i], args);
+			write_i += strf_handler(output + write_i, len - 1 - write_i, format[++read_i], args);
 		else
 		{
 			output[write_i] = format[read_i];

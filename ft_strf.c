@@ -6,12 +6,47 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 13:01:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/12 18:56:21 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/12 20:18:08 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static size_t	strf_recu_putnbr(char *output, size_t len, long int nb)
+{
+	int	ret;
+
+	ret = 0;
+	if ((nb > 0) && (len > 0))
+	{
+		ret = 1 + strf_recu_putnbr(output + 1, len - 1, nb / 10);
+		*output = (nb % 10) + '0';
+	}
+	return (ret);
+}
+
+size_t	strf_putnbr(char *output, size_t len, long int nb)
+{
+	size_t	write_len;
+
+	write_len = 0;
+	if ((nb < 0) && (len > 0))
+	{
+		output[write_len] = '-';
+		nb = -nb;
+		write_len++;
+		len--;
+	}
+	if ((nb == 0) && (len > 0))
+	{
+		output[write_len] = '0';
+		write_len++;
+		len--;
+	}
+	else
+		write_len += strf_recu_putnbr(output, len, nb);
+	return (write_len);
+}
 
 size_t	strf_putstr(char *output, const size_t len, const char *str)
 {

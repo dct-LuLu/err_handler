@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 13:01:45 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/14 18:57:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/14 20:18:18 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,4 +191,17 @@ void strf(char *output, const size_t len, const char *format, ...)
 	va_end(args);
 }
 
+void	add_str(char *output, const size_t max_len, char *add)
+{
+	size_t	output_len;
+	size_t	i;
 
+	i = 0;
+	output_len = ft_strlen(output);
+	while ((output_len + i < max_len - 1) && add[i])
+	{
+		output[output_len + i] = add[i];
+		i++;
+	}
+	output[output_len + i] = '\0';
+}

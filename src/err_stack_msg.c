@@ -6,14 +6,14 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 14:51:48 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/14 19:49:09 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/14 20:25:49 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error_handler.h"
 
 
-static char	(*stack_err_msg(void))[MAX_ERR_MSG_LEN]
+char	(*stack_err_msg(void))[MAX_ERR_MSG_LEN]
 {
 	static char		stack_err_msg[MAX_ERR_STACK][MAX_ERR_MSG_LEN];
 
@@ -29,8 +29,6 @@ static char	*get_stack_err_msg(ssize_t stack_err_i)
 		last_stack_err_i++;
 	return ((char *)err_msg);
 }
-
-void	add_str(char *output, const size_t max_len, char *add);
 
 static void	add_stack_err_msg(const uint16_t err_id, const char *file,
 		const int line, const char *func)
@@ -80,21 +78,6 @@ int		neg_error(const uint16_t err_id, const char *file, const int line, const ch
 	return (-1);
 }
 
-void	add_str(char *output, const size_t max_len, char *add)
-{
-	size_t	output_len;
-	size_t	i;
-
-	i = 0;
-	output_len = ft_strlen(output);
-	while ((output_len + i < max_len - 1) && add[i])
-	{
-		output[output_len + i] = add[i];
-		i++;
-	}
-	output[output_len + i] = '\0';
-}
-
 __attribute__((format(printf, 1, 2)))
 void	register_complex_err_msg(const char *format, ...)
 {
@@ -113,8 +96,6 @@ void	register_complex_err_msg(const char *format, ...)
 	va_end(args);
 	errno = errn;
 }
-
-
 
 void	print_errs(void)
 {

@@ -6,24 +6,11 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 08:21:48 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/14 19:27:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/14 20:12:09 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error_handler.h"
-
-/*
-#define TEST "Parsing error of character '%c' at line %d in file \"%s\"\n"
-
-int	main(void)
-{
-	char	test[100];
-
-	strf(test, 100, TEST, 'f', 25, "file.c");
-	ft_printf(test);
-	printf(TEST, 'f', 25, "file.c");
-	return (0);
-}*/
 
 #define BIN_ID 1
 

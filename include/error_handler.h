@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:56:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/14 19:26:46 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/14 20:26:27 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,28 @@ typedef struct s_err
 }					t_err;
 
 t_err		get_error(const uint8_t unit_id, const uint8_t unit_errnum);
-
 void		bulk_register_error(const size_t err_num, const uint8_t unit_id,
 				const char **unit_err_msgs);
 
 void		strf(char *output, const size_t len, const char *format, ...)
 			__attribute__((format(printf, 3, 4)));
-
 void		strfv(char *output, const size_t len, const char *format,
 				va_list args);
+void		add_str(char *output, const size_t max_len, char *add);
 
 # define MAX_ERR_STACK 10
 # define MAX_ERR_MSG_LEN 500
 
 # define ERR_TEMPLATE "[%s:%d in %s()]\n%s\n\n"
 
+char		(*stack_err_msg(void))[MAX_ERR_MSG_LEN];
 void		register_complex_err_msg(const char *format, ...)
 			__attribute__((format(printf, 1, 2)));
-
-void		print_errs(void);
-
 int			error(const uint16_t err_id, const char *file, const int line,
 				const char *func);
-
 void		*nul_error(const uint16_t err_id, const char *file,
 				const int line, const char *func);
+void		print_errs(void);
 
 #endif//ERROR_HANDLER_H
 

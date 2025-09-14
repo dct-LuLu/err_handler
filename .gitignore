@@ -1,0 +1,10 @@
+std_err.txt
+a.out
+*.a
+*.d
+*.o
+.dep/
+.obj/
+error_handler.a
+test
+!test/

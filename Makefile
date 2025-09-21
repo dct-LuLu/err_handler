@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-#    Updated: 2025/09/14 08:46:55 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/09/21 20:04:05 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,6 @@ MKS			= src.mk
 
 include $(addprefix $(SRCDIR)/, $(MKS))
 
-include $(SRCDIR)/test/test.mk
-
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
 INCLUDES	= error_handler.h
@@ -80,9 +78,6 @@ ifeq ($(FAST),1)
 	@$(RANLIB) $@
 endif
 	$(call ar-finish-msg)
-
-test: $(NAME)
-	$(CF) $(TEST_SRCS) $(ARCHIVES) $^ $(LFLAGS) -o $@
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(VARS) ROOTDIR=../..
@@ -108,10 +103,14 @@ help:
 	@echo "  re      : Rebuild everything"
 
 clean:
+	@$(MAKE) -s -C $(LIBFTDIR) clean ROOTDIR=../..
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
 
-fclean: clean
+fclean:
+	@$(MAKE) -s -C $(LIBFTDIR) fclean ROOTDIR=../..
+	$(call rm-obj-msg)
+	@rm -rf $(OBJDIR) $(DEPDIR)
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
 

@@ -1,7 +1,0 @@
-[submodule "mkidir"]
-	path = mkidir
-	url = git@github.com:dct-LuLu/mkidir.git
-[submodule "lib/libft"]
-	path = lib/libft
-	url = git@github.com:dct-LuLu/libft.git
-	branch = libft-stripped

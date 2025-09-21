@@ -6,49 +6,48 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 20:18:46 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/14 20:19:28 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/21 17:29:52 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error_handler.h"
 
+static size_t	stack_err_len(char (*errs)[MAX_ERR_MSG_LEN])
+{
+	size_t	len;
+
+	len = 0;
+	while (*(errs[len]))
+		len++;
+	return (len);
+}
+
+static void	print_err(char err[MAX_ERR_MSG_LEN], int err_stack_i)
+{
+	size_t	i;
+
+	i = 0;
+	while (err[i])
+	{
+		if ((i == 0) || (err[i - 1] == '\n'))
+			printf("%*s", err_stack_i * 4, "");
+		printf("%c", err[i]);
+		i++;
+	}
+}
+
 void	print_errs(void)
 {
 	char	(*errs)[MAX_ERR_MSG_LEN];
-	int		i;
-	int		err_stack_num;
+	size_t	err_stack_len;
+	size_t	err_stack_i;
 
-	err_stack_num = 0;
 	errs = stack_err_msg();
-	i = 0;
-	while (*(errs[i]))
-		i++;
-	i--;
-	int j;
-	int	k;
-	while (i >= 0)
+	err_stack_len = stack_err_len(errs);
+	err_stack_i = 0;
+	while (err_stack_i < err_stack_len)
 	{
-		j = 0;
-		while (errs[i][j])
-		{
-			if ((errs[i][j] == '\n') || (j == 0))
-			{
-				k = 0;
-				if (j != 0)
-				{
-					printf("\n");
-					j++;
-				}
-				while (k < err_stack_num * 4)
-				{
-					printf(" ");
-					k++;
-				}
-			}
-			printf("%c", errs[i][j]);
-			j++;
-		}
-		i--;
-		err_stack_num++;
+		print_err(errs[err_stack_len - 1 - err_stack_i], err_stack_i);
+		err_stack_i++;
 	}
 }

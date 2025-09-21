@@ -8,3 +8,4 @@ a.out
 error_handler.a
 test
 !test/
+.vscode/

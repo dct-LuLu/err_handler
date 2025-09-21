@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:56:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/14 20:26:27 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:39:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,33 @@ typedef struct s_err
 	uint8_t	unit_id;
 	uint8_t	unit_errnum;
 	char	*err_msg;
-}					t_err;
+}			t_err;
 
-t_err		get_error(const uint8_t unit_id, const uint8_t unit_errnum);
+typedef t_err	t_errs_registry[MAX_UNIT_ERR];
+
+t_err		fetch_error(const uint8_t unit_id, const uint8_t unit_errnum);
 void		bulk_register_error(const size_t err_num, const uint8_t unit_id,
 				const char **unit_err_msgs);
-
-void		strf(char *output, const size_t len, const char *format, ...)
-			__attribute__((format(printf, 3, 4)));
-void		strfv(char *output, const size_t len, const char *format,
-				va_list args);
-void		add_str(char *output, const size_t max_len, char *add);
+void		register_complex_err_msg(const char *format, ...)
+			__attribute__((format(printf, 1, 2)));
 
 # define MAX_ERR_STACK 10
 # define MAX_ERR_MSG_LEN 500
 
-# define ERR_TEMPLATE "[%s:%d in %s()]\n%s\n\n"
+# define ERR_TEMPLATE "[%s:%d] in %s()\n%s\n\n"
 
 char		(*stack_err_msg(void))[MAX_ERR_MSG_LEN];
-void		register_complex_err_msg(const char *format, ...)
-			__attribute__((format(printf, 1, 2)));
+char		*get_stack_err_msg(ssize_t stack_err_i);
+void		add_stack_err_msg(const uint16_t err_id, const char *file,
+			const int line, const char *func);
+
 int			error(const uint16_t err_id, const char *file, const int line,
+				const char *func);
+int			neg_error(const uint16_t err_id, const char *file, const int line,
 				const char *func);
 void		*nul_error(const uint16_t err_id, const char *file,
 				const int line, const char *func);
+
 void		print_errs(void);
 
 #endif//ERROR_HANDLER_H

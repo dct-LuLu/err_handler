@@ -91,3 +91,25 @@ int	main(void)
 	print_errs();
 	return (0);
 }
+
+// ❯ ./test
+// [src/test/main.c:90] in main()
+// test 2
+
+//     [src/test/main.c:81] in err1()
+//     complex error 22
+//     complex error 22:
+//     Input/output error
+
+//         [src/test/main.c:70] in err2()
+//         test 2
+
+//             [src/test/main.c:63] in err3()
+//             test 3
+
+//                 [src/test/main.c:56] in err4()
+//                 test 4
+
+//                     [src/test/main.c:50] in err5()
+//                     test 5:
+//                     Operation not permitted

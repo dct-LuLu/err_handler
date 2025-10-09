@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error_handler.h"
+#include "xcercall.h"
 
 char	(*stack_err_msg(void))[MAX_ERR_MSG_LEN]
 {

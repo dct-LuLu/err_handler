@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.h                                    :+:      :+:    :+:   */
+/*   xcercall.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:56:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/09/21 18:39:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:50:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_HANDLER_H
-# define ERROR_HANDLER_H
+#ifndef XCERCALL_H
+# define XCERCALL_H
 # include <stdint.h>
 # include <stdarg.h>
 # include "libft.h"
 # include <errno.h>
 # include <string.h>
+
+# define FL __FILE__
+# define LN __LINE__
+# define FC __func__
 
 # define ERR_BITPACK_SHIFT 8
 # define ERR_BITPACK_MASK 0xFF
@@ -62,7 +66,7 @@ void		*nul_error(const uint16_t err_id, const char *file,
 
 void		print_errs(void);
 
-#endif//ERROR_HANDLER_H
+#endif//XCERCALL_H
 
 /*
 //naming scheme:

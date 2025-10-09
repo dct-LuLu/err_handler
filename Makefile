@@ -6,14 +6,14 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-#    Updated: 2025/09/21 20:14:27 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/09 13:13:14 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ROOTDIR		?= .
 include $(ROOTDIR)/mkidir/make_utils.mk
 
-LIBNAME		= xcerrcal
+LIBNAME		= libxcerrcal
 
 # Directories
 CDIR		= $(LIBNAME)

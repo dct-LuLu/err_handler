@@ -5,7 +5,7 @@ a.out
 *.o
 .dep/
 .obj/
-xcercall.a
+xcerrcal.a
 test
 !test/
 .vscode/

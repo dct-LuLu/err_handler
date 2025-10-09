@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xcercall.h                                         :+:      :+:    :+:   */
+/*   xcerrcal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XCERCALL_H
-# define XCERCALL_H
+#ifndef XCERRCAL_H
+# define XCERRCAL_H
 # include <stdint.h>
 # include <stdarg.h>
 # include "libft.h"
@@ -66,7 +66,7 @@ void		*nul_error(const uint16_t err_id, const char *file,
 
 void		print_errs(void);
 
-#endif//XCERCALL_H
+#endif//XCERRCAL_H
 
 /*
 //naming scheme:

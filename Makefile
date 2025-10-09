@@ -26,8 +26,6 @@ LIBFTDIR	= $(LIBDIR)/libft
 
 # Output
 NAME		= $(LIBNAME).a
-LIBFT		= $(LIBFTDIR)/libft.a
-ARCHIVES	= $(LIBFT)
 
 # Compiler and flags
 CC			= cc
@@ -64,23 +62,20 @@ include $(addprefix $(SRCDIR)/, $(MKS))
 
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
-INCLUDES	= xcercall.h
+INCLUDES	= xcerrcal.h
 INCLUDES	:= $(addprefix $(INCDIR)/, $(INCLUDES))
 
 all:	$(NAME)
 fast:	$(NAME)
 debug:	$(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(INCLUDES)
+$(NAME): $(OBJS) $(INCLUDES)
 	$(call ar-msg)
-	@$(AR) $(ARFLAGS) $@ $(ARCHIVES) $(OBJS)
+	@$(AR) $(ARFLAGS) $@ $(OBJS)
 ifeq ($(FAST),1)
 	@$(RANLIB) $@
 endif
 	$(call ar-finish-msg)
-
-$(LIBFT):
-	@$(MAKE) -s -C $(LIBFTDIR) $(RULE) $(VARS) ROOTDIR=../..
 
 $(OBJDIR)/%.o: %.c $(INCLUDES) | buildmsg $(OBJDIR) $(DEPDIR)
 	$(call lib-compile-obj-msg)
@@ -103,14 +98,10 @@ help:
 	@echo "  re      : Rebuild everything"
 
 clean:
-	@$(MAKE) -s -C $(LIBFTDIR) clean ROOTDIR=../..
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
 
-fclean:
-	@$(MAKE) -s -C $(LIBFTDIR) fclean ROOTDIR=../..
-	$(call rm-obj-msg)
-	@rm -rf $(OBJDIR) $(DEPDIR)
+fclean: clean
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
 

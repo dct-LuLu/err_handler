@@ -5,7 +5,7 @@ a.out
 *.o
 .dep/
 .obj/
-error_handler.a
+xcercall.a
 test
 !test/
 .vscode/

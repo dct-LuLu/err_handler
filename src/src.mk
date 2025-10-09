@@ -10,12 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-STRF_SRCS	= err_register.c \
+ERR_SRCS	= err_register.c \
 			  err_bitpack.c \
 			  err_stack_msg.c \
 			  err_print.c \
 			  err_report.c
 
-SRCS		+= $(addprefix $(SRCDIR)/, $(STRF_SRCS))
+SRCS		+= $(addprefix $(SRCDIR)/, $(ERR_SRCS))
 
 vpath %.c $(SRCDIR)

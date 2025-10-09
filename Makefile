@@ -6,11 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2025/09/21 20:12:24 by jaubry--         ###   ########.fr        #
-=======
-#    Updated: 2025/10/09 13:13:14 by jaubry--         ###   ########.fr        #
->>>>>>> 86cd088 (EDIT: renamed LIBNAME to follow lib* syntax)
+#    Updated: 2025/10/09 13:49:49 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +66,7 @@ include $(SRCDIR)/test/test.mk
 
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
-INCLUDES	= xcercall.h
+INCLUDES	= xcerrcal.h
 INCLUDES	:= $(addprefix $(INCDIR)/, $(INCLUDES))
 
 all:	$(NAME)
@@ -79,7 +75,7 @@ debug:	$(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) $(INCLUDES)
 	$(call ar-msg)
-	@$(AR) $(ARFLAGS) $@ $(ARCHIVES) $(OBJS)
+	@$(AR) $(ARFLAGS) $@ $(OBJS)
 ifeq ($(FAST),1)
 	@$(RANLIB) $@
 endif

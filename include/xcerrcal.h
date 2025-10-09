@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xcercall.h                                         :+:      :+:    :+:   */
+/*   xcerrcal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:56:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/09 12:50:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:51:40 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XCERCALL_H
-# define XCERCALL_H
+#ifndef XCERRCAL_H
+# define XCERRCAL_H
 # include <stdint.h>
 # include <stdarg.h>
-# include "libft.h"
 # include <errno.h>
 # include <string.h>
+# include "libft.h"
 
 # define FL __FILE__
 # define LN __LINE__
@@ -66,7 +66,7 @@ void		*nul_error(const uint16_t err_id, const char *file,
 
 void		print_errs(void);
 
-#endif//XCERCALL_H
+#endif//XCERRCAL_H
 
 /*
 //naming scheme:

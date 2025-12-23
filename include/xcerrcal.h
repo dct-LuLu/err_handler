@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:56:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/09 12:50:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:08:13 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_err
 	char	*err_msg;
 }			t_err;
 
-typedef t_err	t_errs_registry[MAX_UNIT_ERR];
+typedef t_err	t_errs_registry[255];
 
 t_err		fetch_error(const uint8_t unit_id, const uint8_t unit_errnum);
 void		bulk_register_error(const size_t err_num, const uint8_t unit_id,
@@ -67,23 +67,3 @@ void		*nul_error(const uint16_t err_id, const char *file,
 void		print_errs(void);
 
 #endif//XCERRCAL_H
-
-/*
-//naming scheme:
-
-// units:
-# define BIN //center code
-# define LFT //libft
-# define MLXW //mlx wrapper
-# define FRDR //font renderer
-# define MUI //mlx ui
-
-// error code:
-#define unit_E_errname
-#define unit_E_MSG_errname
-
-
-#define LFT 2
-#define LFT_E_STRCPY 5
-#define LFT_E_MSG_STRCPY_ "ft_strcpy failed"
-*/

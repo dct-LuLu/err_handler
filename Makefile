@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/09 20:13:51 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/04 21:44:57 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,22 @@ include $(ROOTDIR)/mkidir/make_utils.mk
 LIBNAME		= libxcerrcal
 
 # Directories
-CDIR		= $(LIBNAME)
+CDIR		= xcerrcal
 SRCDIR		= src
-INCDIR		= include
 OBJDIR		= .obj
 DEPDIR		= .dep
 
 LIBFTDIR	= $(LIBDIR)/libft
 
+# Includes
+include $(LIBFTDIR)/includes.mk includes.mk
+
+INCLUDES	= $(INCDIRS_XCERRCAL) \
+			  $(addprefix $(LIBFTDIR)/, $(INCDIRS_LIBFT))
+
 # Output
 NAME		= $(LIBNAME).a
+LIBFT		= $(LIBFTDIR)/libft.a
 
 # Compiler and flags
 CC			= cc
@@ -35,15 +41,9 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= -I$(INCDIR) -I$(LIBFTDIR)/include
+IFLAGS		= $(addprefix -I,$(INCLUDES))
 
-LFLAGS		= -L$(LIBFTDIR) \
-			  -lft -lm
-
-VARS		= DEBUG=$(DEBUG)
-VFLAGS		= $(addprefix -D ,$(VARS))
-
-CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
+CFLAGS		+= $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS)
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
 AR          = $(if $(findstring -flto,$(FFLAGS)),$(FAST_AR),$(STD_AR))
@@ -51,7 +51,7 @@ ARFLAGS		= rcs
 RANLIB      = $(if $(findstring -flto,$(FFLAGS)),$(FAST_RANLIB),$(STD_RANLIB))
 
 # VPATH
-vpath %.h $(INCDIR) $(LIBFTDIR)/$(INCDIR)
+vpath %.h $(INLUDES)
 vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR)
 
@@ -62,8 +62,6 @@ include $(addprefix $(SRCDIR)/, $(MKS))
 
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
-INCLUDES	= xcerrcal.h
-INCLUDES	:= $(addprefix $(INCDIR)/, $(INCLUDES))
 
 all:	$(NAME)
 fast:	$(NAME)

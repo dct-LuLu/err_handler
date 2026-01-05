@@ -34,7 +34,7 @@ NAME		= $(LIBNAME).a
 LIBFT		= $(LIBFTDIR)/libft.a
 
 # Compiler and flags
-CC			= cc
+CC			?= cc
 
 CFLAGS		= -Wall -Wextra -Werror \
 			  -std=gnu11
@@ -65,7 +65,8 @@ DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
 
 all:	$(NAME)
 fast:	$(NAME)
-debug:	$(NAME)
+inspect:$(NAME)
+profile:$(NAME)
 
 $(NAME): $(OBJS) $(INCLUDES)
 	$(call ar-msg)

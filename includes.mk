@@ -6,10 +6,9 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/04 21:29:37 by jaubry--          #+#    #+#              #
-#    Updated: 2026/01/04 21:30:24 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/05 07:42:40 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INCDIR			= include
-
 INCDIRS_XCERRCAL:= $(INCDIR)

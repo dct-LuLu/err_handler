@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/07 02:43:53 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/12 06:32:53 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,10 +63,15 @@ include $(addprefix $(SRCDIR)/, $(MKS))
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
 
-all:	$(NAME)
-fast:	$(NAME)
-inspect:$(NAME)
-profile:$(NAME)
+
+all:		$(NAME)
+fast:		$(NAME)
+debug:		$(NAME)
+inspect:	$(NAME)
+profile:	$(NAME)
+san-mem:	$(NAME)
+san-leak:	$(NAME)
+san-ub:		$(NAME)
 
 $(NAME): $(OBJS) $(INCLUDES)
 	$(call ar-msg)
@@ -91,10 +96,16 @@ endif
 
 help:
 	@echo "Available targets:"
-	@echo "  all     : Build the library"
-	@echo "  clean   : Remove object files"
-	@echo "  fclean  : Remove object files and library"
-	@echo "  re      : Rebuild everything"
+	@echo -e "\tall, $(NAME)\t\t: Build the library"
+	@echo -e "\tdebug\t\t\t\t: Build the library with debug symbols"
+	@echo -e "\tre\t\t\t\t: Rebuild $(NAME)"
+	@echo
+	@echo -e "\tclean\t\t\t\t: Remove object files"
+	@echo -e "\tfclean\t\t\t\t: Remove object files, libraries"
+	@echo
+	@echo -e "\tprint-%\t\t\t\t: Prints makefile variable content when replacing '%'"
+
+print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
 clean:
 	$(call rm-obj-msg)
@@ -106,8 +117,17 @@ fclean:
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
 
-re: fclean all
+re:			fclean all
+refast:		fclean fast
+redebug:	fclean debug
+reinspect:	fclean inspect
+reprofile:	fclean profile
+resan-mem:	fclean san-mem
+resan-leak:	fclean san-leak
+resan-ub:	fclean san-ub
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re debug help buildmsg
+.PHONY: all clean fclean
+.PHONY: help buildmsg
+.PHONY: re refast redebug reinspect reprofile resan-mem resan-leak resan-ub

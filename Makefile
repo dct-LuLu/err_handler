@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/12 06:32:53 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/16 16:56:01 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,9 @@ INCLUDES	= $(INCDIRS_XCERRCAL) \
 NAME		= $(LIBNAME).a
 LIBFT		= $(LIBFTDIR)/libft.a
 
+# Variables
+VARS		= MINIRT_MODE=$(MINIRT_MODE)
+
 # Compiler and flags
 CC			?= cc
 
@@ -43,7 +46,9 @@ DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
 IFLAGS		= $(addprefix -I,$(INCLUDES))
 
-CFLAGS		+= $(SANITIZE_FLAGS) $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS)
+VFLAGS		= $(addprefix -D ,$(VARS) DEBUG=$(DEBUG))
+
+CFLAGS		+= $(SANITIZE_FLAGS) $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS) $(VFLAGS)
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
 AR          = $(if $(findstring -flto,$(FFLAGS)),$(FAST_AR),$(STD_AR))

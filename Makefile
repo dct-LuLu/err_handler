@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 01:19:17 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/16 16:56:01 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/16 20:04:28 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,31 +68,23 @@ include $(addprefix $(SRCDIR)/, $(MKS))
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.o=.d)))
 
-
-all:		$(NAME)
-fast:		$(NAME)
-debug:		$(NAME)
-inspect:	$(NAME)
-profile:	$(NAME)
-san-mem:	$(NAME)
-san-leak:	$(NAME)
-san-ub:		$(NAME)
+include $(ROOTDIR)/mkidir/make_rules.mk
 
 $(NAME): $(OBJS) $(INCLUDES)
 	$(call ar-msg)
+ifeq ($(VERBOSE),1)
+	$(AR) $(ARFLAGS) $@ $(OBJS)
+else
 	@$(AR) $(ARFLAGS) $@ $(OBJS)
+endif
 ifeq ($(FAST),1)
+ifeq ($(VERBOSE),1)
+	$(RANLIB) $@
+else
 	@$(RANLIB) $@
 endif
+endif
 	$(call ar-finish-msg)
-
-$(OBJDIR)/%.o: %.c $(INCLUDES) | buildmsg $(OBJDIR) $(DEPDIR)
-	$(call lib-compile-obj-msg)
-	@$(CF) $(DFLAGS) -c $< -o $@
-
-$(OBJDIR) $(DEPDIR):
-	$(call create-dir-msg)
-	@mkdir -p $@
 
 buildmsg:
 ifneq ($(shell [ -f $(NAME) ] && echo exists),exists)
@@ -110,8 +102,6 @@ help:
 	@echo
 	@echo -e "\tprint-%\t\t\t\t: Prints makefile variable content when replacing '%'"
 
-print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
-
 clean:
 	$(call rm-obj-msg)
 	@rm -rf $(OBJDIR) $(DEPDIR)
@@ -122,17 +112,7 @@ fclean:
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
 
-re:			fclean all
-refast:		fclean fast
-redebug:	fclean debug
-reinspect:	fclean inspect
-reprofile:	fclean profile
-resan-mem:	fclean san-mem
-resan-leak:	fclean san-leak
-resan-ub:	fclean san-ub
-
 -include $(DEPS)
 
 .PHONY: all clean fclean
 .PHONY: help buildmsg
-.PHONY: re refast redebug reinspect reprofile resan-mem resan-leak resan-ub

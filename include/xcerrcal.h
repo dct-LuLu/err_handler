@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 12:56:11 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 19:08:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:47:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_err
 	char	*err_msg;
 }			t_err;
 
+//typedef t_err	t_errs_registry[MAX_UNIT_ERR];
 typedef t_err	t_errs_registry[255];
 
 t_err		fetch_error(const uint8_t unit_id, const uint8_t unit_errnum);
@@ -52,10 +53,10 @@ void		register_complex_err_msg(const char *format, ...)
 
 # define ERR_TEMPLATE "[%s:%d] in %s()\n%s\n\n"
 
-char		(*stack_err_msg(void))[MAX_ERR_MSG_LEN];
+char			(*stack_err_msg(void))[MAX_ERR_MSG_LEN];
 char		*get_stack_err_msg(ssize_t stack_err_i);
 void		add_stack_err_msg(const uint16_t err_id, const char *file,
-			const int line, const char *func);
+				const int line, const char *func);
 
 int			error(const uint16_t err_id, const char *file, const int line,
 				const char *func);
